@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  PASSENGER
+  DRIVER
+  ADMIN
+}
+
+enum KycStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum TripStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PanicType {
+  PASSENGER
+  DRIVER
+}
+
+model User {
+  id       String   @id @default(cuid())
+  email    String   @unique
+  phone    String?  @unique
+  password String
+  fName String
+  lName String
+  role     UserRole
+
+  kyc   Kyc?    @relation(fields: [kycId], references: [id])
+  kycId String? @unique // ✅ must be unique for one-to-one
+
+  // driverProfile Driver? @relation(fields: [driverId], references: [id])
+  driverId      String? @unique // ✅ must be unique for one-to-one
+
+  bookings    Booking[]
+  ratings     Rating[]
+  panicAlerts PanicAlert[]
+  trips Trip[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Kyc {
+  id              String    @id @default(cuid())
+  nin             String?   @unique
+  license         String? // Driver’s license
+  policeClearance String?
+  status          KycStatus @default(PENDING)
+  verifiedBy      String? // Admin userId
+  verifiedAt      DateTime?
+
+  user User?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Trip {
+  id       String  @id @default(cuid())
+  driverId String?
+  driver      User?    @relation(fields: [driverId], references: [id])
+
+  origin        String
+  destination   String
+  departureTime DateTime
+  arrivalTime   DateTime?
+  status        TripStatus @default(SCHEDULED)
+
+  bookings    Booking[]
+  panicAlerts PanicAlert[]
+  ratings     Rating[] // ✅ added missing relation
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Booking {
+  id          String @id @default(cuid())
+  trip        Trip   @relation(fields: [tripId], references: [id])
+  tripId      String
+  passenger   User   @relation(fields: [passengerId], references: [id])
+  passengerId String
+
+  qrCode String // QR token for validation
+  status BookingStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PanicAlert {
+  id     String  @id @default(cuid())
+  user   User    @relation(fields: [userId], references: [id])
+  userId String
+  trip   Trip?   @relation(fields: [tripId], references: [id])
+  tripId String?
+  latitude  Float
+  longitude Float
+
+
+  type      PanicType
+  message   String?
+  resolved  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+}
+
+model Rating {
+  id          String @id @default(cuid())
+  passenger   User   @relation(fields: [passengerId], references: [id])
+  passengerId String
+  trip        Trip   @relation(fields: [tripId], references: [id])
+  tripId      String
+
+  score     Int // 1–5 stars
+  comment   String?
+  createdAt DateTime @default(now())
+}
