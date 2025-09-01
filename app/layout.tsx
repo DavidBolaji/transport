@@ -9,7 +9,7 @@ import { Suspense } from "react"
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: "Transport",
+  title: "ABC Transport",
   description: "Transporting system - travel safe",
 }
 

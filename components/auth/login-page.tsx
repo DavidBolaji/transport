@@ -38,11 +38,6 @@ export function LoginPage() {
     }
   }
 
-  const demoCredentials = [
-    { role: "Passenger", email: "john@example.com", password: "passenger123" },
-    { role: "Driver", email: "jane@example.com", password: "driver123" },
-    { role: "Admin", email: "admin@example.com", password: "admin123" },
-  ]
 
   if (!isLogin) {
     return <RegisterPage onBackToLogin={() => setIsLogin(true)} />
@@ -58,7 +53,7 @@ export function LoginPage() {
               <Bus className="h-8 w-8 text-white" />
             </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">TransportHub</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">ABC Transport</h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">Your reliable transportation partner</p>
         </div>
 

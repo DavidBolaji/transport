@@ -57,7 +57,7 @@ export function DashboardLayout({ children, userRole, userName, onLogout }: Dash
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <Bus className="w-5 h-5 text-primary-foreground" />
           </div>
-          <h1 className="text-xl font-bold text-sidebar-foreground">TransportHub</h1>
+          <h1 className="text-xl font-bold text-sidebar-foreground">ABC Transport</h1>
         </div>
       </div>
 
@@ -108,7 +108,7 @@ export function DashboardLayout({ children, userRole, userName, onLogout }: Dash
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Bus className="w-5 h-5 text-primary-foreground" />
             </div>
-            <h1 className="text-lg font-bold text-foreground">TransportHub</h1>
+            <h1 className="text-lg font-bold text-foreground">ABC Transport</h1>
           </div>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>

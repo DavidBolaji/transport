@@ -66,7 +66,7 @@ export function QrTicket({ booking, trip, passenger }: QrTicketProps) {
         </head>
         <body>
           <div class="ticket">
-            <h1 style="text-align: center; color: #3b82f6;">TransportHub Ticket</h1>
+            <h1 style="text-align: center; color: #3b82f6;">ABC Transport Ticket</h1>
             <div class="qr-code">${qrSvg}</div>
             <div class="details">
               <div><span class="label">Passenger:</span> <span class="value">${`${passenger.fName} ${passenger.lName}`}</span></div>
@@ -103,7 +103,7 @@ export function QrTicket({ booking, trip, passenger }: QrTicketProps) {
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <MapPin className="w-5 h-5 text-primary-foreground" />
           </div>
-          TransportHub Ticket
+          ABC Transport Ticket
         </CardTitle>
         <CardDescription>Digital bus ticket with QR code</CardDescription>
       </CardHeader>

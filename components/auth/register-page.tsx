@@ -94,12 +94,12 @@ export function RegisterPage({ onBackToLogin }: RegisterPageProps) {
       description: "Drive and manage routes",
       icon: Car,
     },
-    {
-      value: UserRole.ADMIN,
-      label: "Admin",
-      description: "Manage All",
-      icon: Briefcase,
-    },
+    // {
+    //   value: UserRole.ADMIN,
+    //   label: "Admin",
+    //   description: "Manage All",
+    //   icon: Briefcase,
+    // },
   ]
 
   return (
@@ -112,7 +112,7 @@ export function RegisterPage({ onBackToLogin }: RegisterPageProps) {
               <Bus className="h-8 w-8 text-white" />
             </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Join TransportHub</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Join ABC Transport</h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">Create your account to get started</p>
         </div>
 
